@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Services</title>
+
+<link rel="stylesheet" href="external.css">
+
+<script>
+
+function ROI(typeOfLoan) {
+var type=typeOfLoan;
+switch(type)
+{
+case '1':{
+	   document.f1.roi.value=7;
+	   break;
+	}
+case '2':{
+	   document.f1.roi.value=9;
+	   break;
+	}
+case '3':{
+	   document.f1.roi.value=12;
+	   break;
+	}
+default: return false;
+}
+}
+
+var flag=true;
+
+function dispEmi(){
+
+if(flag) {
+var str=
+`<h3>
+<form name="f1">
+<label>Applicant Name:</label> 
+<input type="text" name="aname"><br>
+
+<label>Type:</label> 
+<select name="loan" onChange="ROI(this.value)">
+<option value="" disabled selected>Select your option</option>
+<option value='1'>Home Loan</option>
+<option value='2'>Car Loan</option>
+<option value='3'>Personal Loan</option>
+</select>
+<br>
+
+<label>Amount:</label> 
+<input type="number" name="amount"><br>
+
+<label>ROI(%):</label> 
+<input type="number" name="roi" disabled><br>
+
+<label>Duration (Years):</label> 
+<input type="number" name="duration" max="maxDuration(loan.value)"><br>
+
+<label>EMI:</label> 
+<input type="number" name="emi" disabled><br><br>
+
+<button type="button" name="calc" onClick="calcEmi(amount.value,roi.value,duration.value)">Calculate EMI</button>
+
+</form>
+</h3>`
+
+document.getElementById("d1").innerHTML=str;
+}
+
+else document.getElementById("d1").innerHTML="";
+flag=!flag
+}
+
+function calcEmi(amt,r,d) {
+
+var amount=parseInt(amt);
+var rate=parseInt(r)/100;
+var duration=parseInt(d)*12;
+document.f1.emi.value= (amount+rate*amount)/duration;
+
+}
+
+function maxDuration(loanValue) {
+var type=loanValue;
+switch(type)
+{
+case '1':  return parseInt(25);
+case '2':return parseInt(7);
+case '3':return parseInt(5);
+default: return false;
+}
+}
+
+</script>
+
+</head>
+<body>
+
+<div id="mySidenav" class="sidenav">
+  <a href="#" class="closebtn" onclick="closeNav()">&times;</a>
+  <a href="index.html">HOME</a>
+  <a href="about.html">ABOUT US</a>
+  <a href="services.html">SERVICES</a>
+  <a href="netbanking.html">NETBANKING</a>
+  <a href="contact.html">CONTACT US</a>
+</div>
+<span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9776; </span>
+
+<h1>SERVICES</h1>
+<hr>
+
+<img id="coverpage" src="services.png">
+
+<h3 onClick="dispEmi()">
+<span style="cursor:pointer;color:blue">
+APPLY FOR EMI
+</span>
+</h3>
+<div id="d1"></div>
+
+<script>
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+</script>
+
+<footer>Privacy Policy &emsp; All Rights Reserved</footer>
+
+</body>
+</html> 
