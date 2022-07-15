@@ -55,7 +55,7 @@ var str=
 <input type="number" name="roi" disabled><br>
 
 <label>Duration (Years):</label> 
-<input type="number" name="duration" max="maxDuration(loan.value)"><br>
+<input type="number" name="duration" min=1 max="maxDuration(loan.value)"><br>
 
 <label>EMI:</label> 
 <input type="number" name="emi" disabled><br><br>
@@ -76,8 +76,19 @@ function calcEmi(amt,r,d) {
 
 var amount=parseInt(amt);
 var rate=parseInt(r)/100;
-var duration=parseInt(d)*12;
-document.f1.emi.value= (amount+rate*amount)/duration;
+var duration=parseInt(d);
+switch(rate*100) {
+case 7: { 
+	if(duration>25) alert("Max. tenure is 25 years");
+	break; }
+case 9: { 
+	if(duration>7) alert("Max. tenure is 7 years");
+	break; }
+case 12: { 
+	if(duration>5) alert("Max. tenure is 5 years");
+	break; }
+}
+document.f1.emi.value= (amount+rate*amount)/(duration*12);
 
 }
 
